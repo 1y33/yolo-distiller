@@ -6,16 +6,16 @@ import ultralytics.utils.torch_utils
 
 
 MODEL_CONFIG = "yolov5x.yaml"
-MODEL_WEIGHTS = None
+MODEL_WEIGHTS = "yolov5x.pt"
 
 TRAINING_CONFIG = {
     "data": "visdrone.yaml",
     "resume": False,
     "batch": 0.60,
-    "epochs": 50,
+    "epochs": 100,
     "dropout": 0.0,
     "lr0": 1e-3,
-    "lrf": 1e-3,
+    "lrf": 1e-5,
     "name": "Test",
     "imgsz": 1024,
     "cos_lr": True,
@@ -39,7 +39,7 @@ def train(use_pretrained=False, config_override=None):
     print("Starting training...")
     
     if use_pretrained:
-        model = YOLO(MODEL_CONFIG) #.load(MODEL_WEIGHTS)
+        model = YOLO(MODEL_CONFIG).load(MODEL_WEIGHTS)
         print(f"Loaded model from {MODEL_CONFIG} with weights {MODEL_WEIGHTS}")
     else:
         model = YOLO(MODEL_CONFIG)
